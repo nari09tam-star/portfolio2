@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¨جامعة تمنغست — القانون الخاص | منصة طلبة الحقوق</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green-950:#052e1f; --green-900:#0b3d2a; --green-800:#11543a; --green-700:#1a6b4a;
+  --gold:#d4af37; --gold-light:#f0d77b; --gold-dark:#a9832a; --cream:#f7f1de;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:radial-gradient(ellipse at 20% 0%,#0f4d33 0%,var(--green-950) 60%);color:var(--cream);min-height:100vh;overflow-x:hidden}
+h1,h2,h3,.serif{font-family:'Amiri',serif}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--green-950)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold),var(--gold-dark));border-radius:10px}
+
+/* ===== شاشة الترحيب ===== */
+#splash{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at center,#0f5136 0%,#041f15 75%);transition:opacity 1.4s ease,visibility 1.4s}
+#splash.hide{opacity:0;visibility:hidden;pointer-events:none}
+#splash .frame{border:2px solid var(--gold);outline:1px solid rgba(212,175,55,.35);outline-offset:8px;padding:60px 70px;position:relative;background:rgba(4,31,21,.55);backdrop-filter:blur(4px);box-shadow:0 0 80px rgba(212,175,55,.18),inset 0 0 60px rgba(0,0,0,.5);max-width:820px;margin:0 20px}
+#splash .frame::before,#splash .frame::after{content:"⚖";position:absolute;color:var(--gold);font-size:26px}
+#splash .frame::before{top:-15px;left:50%;transform:translateX(-50%);background:var(--green-950);padding:0 14px}
+#splash .frame::after{display:none}
+.splash-kicker{letter-spacing:6px;color:var(--gold-light);font-size:14px;margin-bottom:18px;animation:fadeUp 1.2s ease both}
+.splash-title{font-size:clamp(30px,5vw,54px);color:var(--gold);text-shadow:0 2px 25px rgba(212,175,55,.45);animation:fadeUp 1.2s .3s ease both}
+.splash-sub{font-size:clamp(16px,2.4vw,22px);margin-top:16px;color:var(--cream);line-height:2;animation:fadeUp 1.2s .6s ease both}
+.divider{display:flex;align-items:center;gap:14px;margin:26px auto;width:70%;animation:fadeUp 1.2s .9s ease both}
+.divider span{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.divider i{color:var(--gold);font-style:normal;font-size:18px}
+#enterBtn{margin-top:34px;opacity:0;animation:fadeUp 1.2s 1.4s ease both,pulseGold 2.6s 2.6s infinite}
+.btn-gold{background:linear-gradient(135deg,var(--gold-light),var(--gold) 45%,var(--gold-dark));color:#1c1405;border:none;padding:14px 46px;font-family:'Cairo';font-weight:800;font-size:17px;border-radius:4px;cursor:pointer;letter-spacing:1px;box-shadow:0 8px 25px rgba(212,175,55,.35);transition:transform .3s,box-shadow .3s}
+.btn-gold:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 14px 35px rgba(212,175,55,.55)}
+.particle{position:absolute;border-radius:50%;background:radial-gradient(circle,var(--gold-light),var(--gold) 60%,transparent);pointer-events:none;animation:floatUp linear infinite;opacity:.85}
+
+/* ===== الهيدر ===== */
+header{position:sticky;top:0;z-index:500;background:rgba(5,46,31,.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(212,175,55,.35);padding:14px 5%;display:flex;align-items:center;justify-content:space-between;opacity:0;transform:translateY(-20px);transition:all .8s}
+body.ready header{opacity:1;transform:none}
+.logo{display:flex;align-items:center;gap:12px}
+.logo .crest{width:46px;height:46px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--gold);background:radial-gradient(circle at 30% 30%,var(--green-700),var(--green-950));box-shadow:0 0 15px rgba(212,175,55,.35)}
+.logo b{font-family:'Amiri';font-size:20px;color:var(--gold)}
+.logo small{display:block;font-size:11px;color:var(--cream);opacity:.75;letter-spacing:2px}
+nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+nav a,nav button{color:var(--cream);text-decoration:none;font-weight:700;font-size:14.5px;padding:9px 16px;border-radius:6px;border:1px solid transparent;background:none;cursor:pointer;font-family:'Cairo';transition:.3s}
+nav a:hover,nav button:hover{color:var(--gold);border-color:rgba(212,175,55,.45)}
+#adminNavBtn{color:var(--gold);border:1px solid var(--gold);border-radius:30px}
+#adminNavBtn:hover{background:var(--gold);color:#1c1405}
+
+/* ===== البطل ===== */
+.hero{text-align:center;padding:90px 20px 60px;position:relative}
+.hero .badge{display:inline-block;border:1px solid var(--gold);color:var(--gold-light);padding:7px 26px;border-radius:30px;font-size:13px;letter-spacing:4px;margin-bottom:26px;background:rgba(212,175,55,.08)}
+.hero h1{font-size:clamp(34px,6vw,66px);color:var(--gold);text-shadow:0 3px 30px rgba(212,175,55,.35)}
+.hero p{max-width:720px;margin:22px auto 0;font-size:17px;line-height:2.1;color:#e9e2c8}
+
+/* ===== المقاييس ===== */
+.section{padding:60px 6%}
+.section-title{text-align:center;margin-bottom:14px}
+.section-title h2{font-size:clamp(26px,4vw,40px);color:var(--gold)}
+.section-title .orn{color:var(--gold);font-size:20px;letter-spacing:8px;margin:8px 0}
+.section-title p{color:#d8d0b2;max-width:640px;margin:0 auto;line-height:1.9}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:26px;margin-top:44px}
+.card{position:relative;border:1px solid rgba(212,175,55,.4);background:linear-gradient(160deg,rgba(17,84,58,.55),rgba(5,46,31,.85));border-radius:14px;padding:34px 26px;cursor:pointer;overflow:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .45s}
+.card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,175,55,.16),transparent 45%,transparent 60%,rgba(212,175,55,.1));opacity:0;transition:opacity .45s}
+.card::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(240,215,123,.22),transparent);transform:skewX(-20deg);transition:left .7s ease}
+.card:hover{transform:translateY(-10px);border-color:var(--gold);box-shadow:0 22px 45px rgba(0,0,0,.5),0 0 30px rgba(212,175,55,.22)}
+.card:hover::after{left:130%}
+.card:hover::before{opacity:1}
+.card .icon{width:64px;height:64px;margin-bottom:18px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;color:var(--gold);background:radial-gradient(circle at 30% 30%,var(--green-700),var(--green-950));box-shadow:inset 0 0 14px rgba(212,175,55,.25)}
+.card h3{font-size:22px;color:var(--gold-light);margin-bottom:10px}
+.card p{font-size:14px;color:#cfc7a6;line-height:1.9}
+.card .go{margin-top:16px;display:inline-block;color:var(--gold);font-weight:800;font-size:14px;letter-spacing:1px}
+.card .count{position:absolute;top:16px;left:16px;background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.4);color:var(--gold-light);font-size:12px;padding:3px 12px;border-radius:20px}
+
+/* ===== المودالات ===== */
+.modal{position:fixed;inset:0;z-index:900;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,20,13,.82);backdrop-filter:blur(6px)}
+.modal.open{display:flex;animation:fadeIn .35s ease}
+.modal-box{width:100%;max-width:680px;max-height:85vh;overflow-y:auto;background:linear-gradient(170deg,var(--green-800),var(--green-950));border:1.5px solid var(--gold);border-radius:16px;padding:34px 30px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 40px rgba(212,175,55,.15);animation:popIn .4s cubic-bezier(.2,.9,.3,1.2)}
+.modal-box h3{color:var(--gold);font-size:26px;text-align:center;margin-bottom:6px}
+.modal-box .sub{text-align:center;color:#cfc7a6;font-size:14px;margin-bottom:22px}
+.close-x{position:absolute;top:14px;left:14px;width:36px;height:36px;border-radius:50%;border:1px solid var(--gold);background:none;color:var(--gold);font-size:18px;cursor:pointer;transition:.3s}
+.close-x:hover{background:var(--gold);color:#1c1405;transform:rotate(90deg)}
+.lesson{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(212,175,55,.3);border-radius:10px;padding:14px 16px;margin-bottom:12px;background:rgba(255,255,255,.03);transition:.3s}
+.lesson:hover{border-color:var(--gold);background:rgba(212,175,55,.07)}
+.lesson .t{display:flex;align-items:center;gap:12px;font-weight:700;font-size:15px}
+.lesson .t .pdf-ic{width:38px;height:38px;min-width:38px;border-radius:8px;background:linear-gradient(135deg,#b3261e,#7a140e);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;letter-spacing:1px}
+.dl-btn{background:linear-gradient(135deg,var(--gold-light),var(--gold-dark));color:#1c1405;border:none;padding:9px 20px;border-radius:6px;font-family:'Cairo';font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap;transition:.3s}
+.dl-btn:hover{transform:scale(1.06);box-shadow:0 6px 18px rgba(212,175,55,.4)}
+.del-btn{background:none;border:1px solid #e05252;color:#ff8a8a;border-radius:6px;padding:8px 12px;cursor:pointer;font-size:13px}
+.empty-msg{text-align:center;color:#a99f7d;padding:26px 0;font-size:15px}
+
+/* ===== النماذج ===== */
+.field{margin-bottom:16px}
+.field label{display:block;font-size:14px;font-weight:700;color:var(--gold-light);margin-bottom:7px}
+.field input,.field textarea,.field select{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.35);border-radius:8px;padding:12px 14px;color:var(--cream);font-family:'Cairo';font-size:15px;transition:.3s;outline:none}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.15)}
+.field textarea{resize:vertical;min-height:110px}
+.form-note{font-size:12.5px;color:#a99f7d;text-align:center;margin-top:12px}
+.error{color:#ff9d9d;font-size:13px;text-align:center;margin-top:10px;min-height:18px}
+.success{color:#9be8b3;font-size:15px;text-align:center;margin-top:14px;font-weight:700}
+
+/* ===== تواصل ===== */
+.contact-wrap{max-width:640px;margin:0 auto;background:linear-gradient(170deg,var(--green-800),var(--green-950));border:1.5px solid var(--gold);border-radius:16px;padding:38px 34px;box-shadow:0 25px 60px rgba(0,0,0,.5)}
+
+/* ===== لوحة المدير ===== */
+.admin-panel{max-width:860px;margin:40px auto 0;border:1.5px solid var(--gold);border-radius:16px;padding:30px;background:linear-gradient(170deg,var(--green-800),var(--green-950));display:none}
+.admin-panel.open{display:block;animation:popIn .4s ease}
+.admin-panel h3{color:var(--gold);text-align:center;font-size:24px}
+.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+@media(max-width:640px){.upload-grid{grid-template-columns:1fr}#splash .frame{padding:40px 26px}nav a,nav button{padding:8px 10px;font-size:13px}}
+.file-drop{border:2px dashed rgba(212,175,55,.5);border-radius:10px;padding:22px;text-align:center;cursor:pointer;transition:.3s;font-size:14px;color:#cfc7a6}
+.file-drop:hover{border-color:var(--gold);background:rgba(212,175,55,.06)}
+.file-drop b{color:var(--gold)}
+#adminList{margin-top:26px}
+
+/* ===== الفوتر ===== */
+footer{margin-top:70px;border-top:1px solid rgba(212,175,55,.3);padding:34px 6%;text-align:center;color:#a99f7d;font-size:14px;line-height:2}
+footer b{color:var(--gold);font-family:'Amiri';font-size:18px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(20px)}to{opacity:1;transform:none}}
+@keyframes pulseGold{0%,100%{box-shadow:0 8px 25px rgba(212,175,55,.35)}50%{box-shadow:0 8px 40px rgba(212,175,55,.65)}}
+@keyframes floatUp{0%{transform:translateY(15vh) scale(.6);opacity:0}12%{opacity:.9}100%{transform:translateY(-110vh) scale(1.15);opacity:0}}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease}
+.reveal.show{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<!-- شاشة الترحيب -->
+<div id="splash">
+  <div class="frame">
+    <div class="splash-kicker">✦ جامعة تمنغست كلية الحقوق والعلوم السياسية ✦</div>
+    <h1 class="splash-title serif">أهلاً وسهلاً بكم</h1>
+    <div class="divider"><span></span><i>⚖</i><span></span></div>
+    <p class="splash-sub">
+      نرحّب بأساتذتنا الكرام وبطلبتنا الأعزّاء الملتحقين بشعبة <b style="color:var(--gold)">القانون الخاص</b><br>
+      منصّتكم الرّسميّة للاطّلاع على مقاييس التخصص وتحميل الدروس والمطبوعات بكل سهولة
+    </p>
+    <button class="btn-gold" id="enterBtn">الدخول إلى المنصّة</button>
+  </div>
+</div>
+
+<header>
+  <div class="logo">
+    <div class="crest">⚖</div>
+    <div><b>جامعة تمنغست  — القانون الخاص</b><small>UNIVERSITÉ · DROIT PRIVÉ</small></div>
+  </div>
+  <nav>
+    <a href="#home">الرئيسية</a>
+    <a href="#subjects">المقاييس</a>
+    
+    <button id="adminNavBtn">👑 المدير</button>
+  </nav>
+</header>
+
+<section class="hero reveal" id="home">
+  <span class="badge">منصّة طلبة الحقوق</span>
+  <h1 class="serif">القانون الخاص</h1>
+  <p>مكتبة رقمية فاخرة تجمع مقاييس التخصص كاملة: العقود الخاصة، الشركات التجارية، القانون الجنائي الخاص وجرائم الفساد، طرق الإثبات والتنفيذ، الإنجليزية، القانون الدولي الخاص، قانون الأسرة، القانون المقارن والمقاولاتية — انقر على أي مقياس وحمّل دروسك مباشرة على هاتفك.</p>
+</section>
+
+<section class="section reveal" id="subjects">
+  <div class="section-title">
+    <h2 class="serif">لوائح المقاييس</h2>
+    <div class="orn">✦ ✦ ✦</div>
+    <p>اختر المقياس لعرض الدروس والمطبوعات المتاحة للتحميل</p>
+  </div>
+  <div class="grid" id="subjectsGrid"></div>
+</section>
+
+<section class="section reveal" id="contact">
+  <div class="section-title">
+    <h2 class="serif">قاعدة البيانات — الجامعة</h2>
+    <div class="orn">✦ ✦ ✦</div>
+    <p>سجّل بياناتك في قاعدة بيانات الجامعة (Formspree) لتبقى على اطلاع بكل جديد</p>
+  </div>
+  <div class="contact-wrap">
+    <form id="dbForm" action="https://formspree.io/f/xjywyzwl" method="POST">
+      <input type="hidden" name="_subject" value="الجامعة — تسجيل جديد">
+      <input type="hidden" name="database" value="الجامعة">
+      <div class="field"><label>الاسم الكامل</label><input type="text" name="الاسم" required placeholder="اكتب اسمك الكامل"></div>
+      <div class="field"><label>البريد الإلكتروني</label><input type="email" name="email" required placeholder="example@mail.com"></div>
+      <div class="field"><label>الصفة</label>
+        <select name="الصفة">
+          <option value="طالب">طالب</option>
+          <option value="أستاذ">أستاذ</option>
+        </select>
+      </div>
+      <div class="field"><label>رسالة أو ملاحظة</label><textarea name="message" placeholder="اكتب رسالتك هنا..."></textarea></div>
+      <button type="submit" class="btn-gold" style="width:100%">إرسال</button>
+      <div class="form-note">تحفظ المعلومات بسرية تامة»</div>
+      <div class="success" id="dbSuccess" style="display:none">✓ تم الإرسال بنجاح إلى قاعدة البيانات</div>
+      <div class="error" id="dbError"></div>
+    </form>
+  </div>
+</section>
+
+<!-- لوحة المدير -->
+<section class="section" id="adminArea" style="padding-top:0">
+  <div class="admin-panel" id="adminPanel">
+    <h3 class="serif">👑 لوحة تحكم المدير</h3>
+    <p class="sub" style="text-align:center;color:#cfc7a6;font-size:14px;margin-top:6px">رفع الدروس والمطبوعات بصيغة PDF للطلبة</p>
+    <div class="upload-grid">
+      <div>
+        <div class="field"><label>المقياس</label><select id="upSubject"></select></div>
+        <div class="field"><label>عنوان الدرس / المطبوعة</label><input type="text" id="upTitle" placeholder="مثال: المحاضرة الأولى — نظرة عامة"></div>
+      </div>
+      <div>
+        <div class="field"><label>ملف PDF</label>
+          <div class="file-drop" id="fileDrop">📄 اضغط هنا لاختيار ملف <b>PDF</b><input type="file" id="upFile" accept="application/pdf" hidden></div>
+        </div>
+        <div class="field"><label>أو رابط خارجي (اختياري)</label><input type="text" id="upUrl" placeholder="https://..."></div>
+      </div>
+    </div>
+    <button class="btn-gold" id="addLessonBtn" style="width:100%">⬆ رفع الدرس للطلبة</button>
+    <div class="error" id="upError"></div>
+    <div class="success" id="upSuccess" style="display:none">✓ تم رفع الدرس بنجاح</div>
+    <div id="adminList"></div>
+  </div>
+</section>
+
+<footer>
+  <b>⚖ الجامعة — شعبة القانون الخاص ⚖</b><br>
+  منصة رقمية لخدمة طلبة وأساتذة القانون الخاص · جميع الحقوق محفوظة © 2026
+</footer>
+
+<!-- مودال المقياس -->
+<div class="modal" id="subjectModal">
+  <div class="modal-box">
+    <button class="close-x" data-close>✕</button>
+    <h3 class="serif" id="modalTitle"></h3>
+    <p class="sub" id="modalSub"></p>
+    <div id="lessonsList"></div>
+  </div>
+</div>
+
+<!-- مودال دخول المدير -->
+<div class="modal" id="loginModal">
+  <div class="modal-box" style="max-width:420px">
+    <button class="close-x" data-close>✕</button>
+    <h3 class="serif">👑 دخول المدير</h3>
+    <p class="sub">منطقة خاصة بإدارة الموقع</p>
+    <div class="field"><label>اسم المستخدم</label><input type="text" id="loginUser" placeholder="اسم المستخدم"></div>
+    <div class="field"><label>كلمة المرور</label><input type="password" id="loginPass" placeholder="كلمة المرور"></div>
+    <button class="btn-gold" id="loginBtn" style="width:100%">دخول</button>
+    <div class="error" id="loginError"></div>
+  </div>
+</div>
+<script>
+/* ================== بيانات المقاييس ================== */
+const SUBJECTS = [
+  {id:'contrats', icon:'📜', name:'العقود الخاصة', desc:'العقد بصفة عامة، آثاره، انحلاله، وأهم العقود الخاصة كالبيع والكراء والمقاولة.'},
+  {id:'societes', icon:'🏛️', name:'الشركات التجارية', desc:'أنواع الشركات، تأسيسها، أعضاؤها وحلّها مع دراسة القانون التجاري.'},
+  {id:'penal', icon:'⚖️', name:'القانون الجنائي الخاص وجرائم الفساد', desc:'جرائم الفساد والاختلاس، المسؤولية الجنائية للشخص المعنوي والجرائم المالية.'},
+  {id:'preuve', icon:'🧾', name:'طرق الإثبات والتنفيذ', desc:'البينة، الإثبات بالكتابة والشهادة واليمين، طرق التنفيذ الجبري والحجز.'},
+  {id:'english', icon:'🌍', name:'الإنجليزية', desc:'Legal English — المصطلحات القانونية والترجمة القانونية للطلبة.'},
+  {id:'dip', icon:'🌐', name:'قانون الدولي الخاص', desc:'الأحوال الشخصية في القانون الدولي الخاص، تنازع القوانين وتنازع الاختصاص.'},
+  {id:'famille', icon:'👨‍👩‍👧', name:'قانون الأسرة', desc:'الزواج، الطلاق، النسب، الحضانة والنفقة في التشريعات المقارنة.'},
+  {id:'compare', icon:'⚖', name:'قانون المقارن', desc:'دراسة مقارنة بين التشريعات العربية والأجنبية ومصادرها وأهميتها.'},
+  {id:'marches', icon:'🏗️', name:'المقاولاتية', desc:'عقد المقاولة العمومية والخاصة، المرافق العمومية، الصفقات وعقود التشغيل.'}
+];
+
+/* بيانات الدروس المرفوعة من المدير فقط */
+const STORE_KEY='univ_nari_lessons_v1';
+let customLessons = JSON.parse(localStorage.getItem(STORE_KEY)||'{}');
+
+function getLessons(id){
+  return customLessons[id] || [];
+}
+
+/* ================== الشاشة الترحيبية ================== */
+(function(){
+  const splash=document.getElementById('splash');
+  for(let i=0;i<40;i++){
+    const p=document.createElement('div');p.className='particle';
+    const s=2+Math.random()*5;
+    p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:-10px;animation-duration:${6+Math.random()*9}s;animation-delay:${Math.random()*7}s`;
+    splash.appendChild(p);
+  }
+  const hide=()=>{splash.classList.add('hide');document.body.classList.add('ready');
+    setTimeout(()=>{splash.style.display='none';document.querySelectorAll('.reveal').forEach(e=>e.classList.add('show'));},1400);};
+  document.getElementById('enterBtn').onclick=hide;
+  setTimeout(hide,11000); /* اختفاء تلقائي بعد 11 ثانية */
+})();
+
+/* ================== عرض المقاييس ================== */
+const grid=document.getElementById('subjectsGrid');
+SUBJECTS.forEach(s=>{
+  const c=document.createElement('div');c.className='card reveal';
+  c.innerHTML=`<span class="count">${getLessons(s.id).length} درساً</span><div class="icon">${s.icon}</div><h3>${s.name}</h3><p>${s.desc}</p><span class="go">عرض الدروس ←</span>`;
+  c.onclick=()=>openSubject(s);
+  grid.appendChild(c);
+});
+
+/* ================== المودالات ================== */
+const subjectModal=document.getElementById('subjectModal');
+function openSubject(s){
+  document.getElementById('modalTitle').textContent=s.icon+' '+s.name;
+  document.getElementById('modalSub').textContent='الدروس والمطبوعات المتاحة للتحميل — انقر «تحميل» لحفظها على هاتفك';
+  renderLessons(s.id);
+  subjectModal.classList.add('open');
+}
+function renderLessons(id){
+  const list=document.getElementById('lessonsList');list.innerHTML='';
+  const lessons=getLessons(id);
+  if(!lessons.length){list.innerHTML='<div class="empty-msg">لا توجد دروس مرفوعة بعد — يقوم المدير برفعها قريباً</div>';return;}
+  lessons.forEach((l,i)=>{
+    const row=document.createElement('div');row.className='lesson';
+    row.innerHTML=`<div class="t"><span class="pdf-ic">PDF</span><span>${l.title}</span></div>`;
+    const wrap=document.createElement('div');wrap.style.cssText='display:flex;gap:8px;align-items:center';
+    const btn=document.createElement('button');btn.className='dl-btn';btn.textContent='⬇ تحميل';
+    btn.onclick=()=>{
+      if(l.data){ /* ملف PDF مرفوع من المدير */
+        const a=document.createElement('a');a.href=l.data;a.download=l.title+'.pdf';a.click();
+      }else if(l.url && l.url !== '#'){ /* رابط خارجي مرفوع من المدير */
+        window.open(l.url, '_blank');
+      }
+    };
+    wrap.appendChild(btn);
+    if(isAdmin){
+      const del=document.createElement('button');del.className='del-btn';del.textContent='حذف';
+      del.onclick=()=>{customLessons[id]=customLessons[id].filter((_,j)=>j!==i);
+        localStorage.setItem(STORE_KEY,JSON.stringify(customLessons));renderLessons(id);refreshCounts();renderAdminList();};
+      wrap.appendChild(del);
+    }
+    row.appendChild(wrap);list.appendChild(row);
+  });
+}
+
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('.modal').classList.remove('open'));
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
+
+/* ================== المدير ================== */
+let isAdmin=false;
+const ADMIN_USER='UNIVERNARI11';
+const ADMIN_PASS='NARI123'; /* غيّرها من هنا */
+const loginModal=document.getElementById('loginModal');
+
+document.getElementById('adminNavBtn').onclick=()=>{
+  if(isAdmin){document.getElementById('adminPanel').classList.toggle('open');document.getElementById('adminArea').scrollIntoView({behavior:'smooth'});}
+  else loginModal.classList.add('open');
+};
+document.getElementById('loginBtn').onclick=()=>{
+  const u=document.getElementById('loginUser').value.trim(),p=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginError');
+  if(u===ADMIN_USER&&p===ADMIN_PASS){isAdmin=true;loginModal.classList.remove('open');
+    document.getElementById('adminPanel').classList.add('open');
+    document.getElementById('adminNavBtn').textContent='👑 لوحة المدير';
+    document.getElementById('adminArea').scrollIntoView({behavior:'smooth'});
+    renderAdminList();refreshCounts();
+  }else err.textContent='✕ اسم المستخدم أو كلمة المرور غير صحيحة';
+};
+document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('loginBtn').click();});
+
+/* رفع درس */
+const upSel=document.getElementById('upSubject');
+SUBJECTS.forEach(s=>{const o=document.createElement('option');o.value=s.id;o.textContent=s.name;upSel.appendChild(o);});
+const fileDrop=document.getElementById('fileDrop'),upFile=document.getElementById('upFile');
+let pickedFile=null;
+fileDrop.onclick=()=>upFile.click();
+upFile.onchange=()=>{pickedFile=upFile.files[0]||null;
+  fileDrop.innerHTML=pickedFile?`📄 تم اختيار: <b>${pickedFile.name}</b> — ${(pickedFile.size/1024/1024).toFixed(2)} MB`:'📄 اضغط هنا لاختيار ملف <b>PDF</b>';};
+
+document.getElementById('addLessonBtn').onclick=()=>{
+  const err=document.getElementById('upError'),ok=document.getElementById('upSuccess');
+  err.textContent='';ok.style.display='none';
+  const id=upSel.value,title=document.getElementById('upTitle').value.trim(),url=document.getElementById('upUrl').value.trim();
+  if(!title){err.textContent='✕ أدخل عنوان الدرس';return;}
+  const finish=(data)=>{customLessons[id]=customLessons[id]||[];
+    customLessons[id].push({title,url:url||'#',data});
+    try{localStorage.setItem(STORE_KEY,JSON.stringify(customLessons));}catch(e){err.textContent='✕ الملف كبير جداً للتخزين المحلي (الحد ~4MB) — استخدم رابطاً خارجياً';return;}
+    ok.style.display='block';document.getElementById('upTitle').value='';document.getElementById('upUrl').value='';
+    pickedFile=null;upFile.value='';fileDrop.innerHTML='📄 اضغط هنا لاختيار ملف <b>PDF</b>';
+    refreshCounts();renderAdminList();};
+  if(pickedFile){if(pickedFile.type!=='application/pdf'&&!pickedFile.name.toLowerCase().endsWith('.pdf')){err.textContent='✕ يجب أن يكون الملف بصيغة PDF';return;}
+    const r=new FileReader();r.onload=e=>finish(e.target.result);r.readAsDataURL(pickedFile);}
+  else if(url){finish(null);}
+  else err.textContent='✕ اختر ملف PDF أو أدخل رابطاً خارجياً';
+};
+function refreshCounts(){document.querySelectorAll('.card').forEach((c,i)=>c.querySelector('.count').textContent=getLessons(SUBJECTS[i].id).length+' درساً');}
+function renderAdminList(){
+  const box=document.getElementById('adminList');box.innerHTML='<h3 style="color:var(--gold);margin:18px 0 12px;text-align:center">الدروس المرفوعة</h3>';
+  let any=false;
+  SUBJECTS.forEach(s=>{(customLessons[s.id]||[]).forEach(l=>{any=true;
+    const row=document.createElement('div');row.className='lesson';
+    row.innerHTML=`<div class="t"><span class="pdf-ic">PDF</span><span>${s.name} — ${l.title}</span></div>`;box.appendChild(row);});});
+  if(!any)box.innerHTML+='<div class="empty-msg">لم يتم رفع أي درس بعد</div>';
+}
+
+/* ================== Formspree ================== */
+document.getElementById('dbForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const form=e.target,err=document.getElementById('dbError'),ok=document.getElementById('dbSuccess');
+  err.textContent='';ok.style.display='none';
+  try{const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+    if(r.ok){ok.style.display='block';form.reset();}else err.textContent='✕ حدث خطأ أثناء الإرسال، حاول مرة أخرى';}
+  catch(_){err.textContent='✕ تحقق من الاتصال بالإنترنت ثم أعد المحاولة';}
+});
+</script>
+</body>
+</html>
